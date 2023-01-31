@@ -8,8 +8,6 @@ REPO=`pwd`
 export HOME=/home/steam
 cd $STEAMCMDDIR
 
-echo "Uploading item $2 for app $1 from $3"
-
 cat << EOF > ./workshop.vdf
 "workshopitem"
 {
@@ -19,6 +17,8 @@ cat << EOF > ./workshop.vdf
 }
 EOF
 
+echo "isaac-steam-workshop-upload is using the following vdf file:"
+echo
 echo "$(cat ./workshop.vdf)"
 
 (/home/steam/steamcmd/steamcmd.sh \
