@@ -3,35 +3,39 @@
 set -e # Exit on any errors
 set -u # Treat unset variables as an error
 
-REPO=`pwd`
-MOD_PATH="$REPO/$2"
+ISAAC_APP_ID="250900"
+REPO_PATH=`pwd`
+MOD_PATH="$REPO_PATH/mod"
+METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
-export HOME=/home/steam
-cd $STEAMCMDDIR
+# https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
+METADATA_XML_ID=$(grep "<id>" "$METADATA_XML_PATH" | awk -F'[^0-9]+' '{ print $2 }')
 
-echo "DEBUG: $REPO"
-ls -l "$REPO" # Debug
-echo "isaac-steam-workshop-upload is uploading the following files from the directory of \"$MOD_PATH\":"
-ls -l "$MOD_PATH"
-echo
-
-cat << EOF > ./workshop.vdf
+WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
+cat << EOF > "$WORKSHOP_VDF_PATH"
 "workshopitem"
 {
-  "appid"            "250900"
-  "publishedfileid"  "$1"
+  "appid"            "$ISAAC_APP_ID"
+  "publishedfileid"  "$METADATA_XML_ID"
   "contentfolder"    "$MOD_PATH"
 }
 EOF
 
+echo "isaac-steam-workshop-upload is uploading the following files from the directory of \"$MOD_PATH\":"
+ls -l "$MOD_PATH"
+echo
+
 echo "isaac-steam-workshop-upload is using the following vdf file:"
 echo
-echo "$(cat ./workshop.vdf)"
+echo "$(cat $WORKSHOP_VDF_PATH)"
 echo
+
+export HOME=/home/steam
+cd $STEAMCMDDIR
 
 (/home/steam/steamcmd/steamcmd.sh \
     +login $STEAM_USERNAME $STEAM_PASSWORD $STEAM_GUARD_CODE \
-    +workshop_build_item `pwd -P`/workshop.vdf \
+    +workshop_build_item $WORKSHOP_VDF_PATH \
     +quit \
 ) || (
     # https://partner.steamgames.com/doc/features/workshop/implementation#SteamCmd
@@ -41,8 +45,8 @@ echo
     echo /home/steam/Steam/logs/workshop_log.txt
     echo "$(cat /home/steam/Steam/logs/workshop_log.txt)"
     echo
-    echo /home/steam/Steam/workshopbuilds/depot_build_$1.log
-    echo "$(cat /home/steam/Steam/workshopbuilds/depot_build_$1.log)"
+    echo /home/steam/Steam/workshopbuilds/depot_build_$ISAAC_APP_ID.log
+    echo "$(cat /home/steam/Steam/workshopbuilds/depot_build_$ISAAC_APP_ID.log)"
 
     exit 1
 )

@@ -1,17 +1,39 @@
-# Steam Workshop Upload Action
+# `isaac-steam-workshop-upload`
 
 <!-- markdownlint-disable MD001 MD033 -->
 
-This action allows you to upload your _[Binding of Isaac: Repentance](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/)_ mod to [the Steam Workshop](https://steamcommunity.com/app/250900/workshop/).
+This GitHub action allows you to upload your _[Binding of Isaac: Repentance](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/)_ mod to [the Steam Workshop](https://steamcommunity.com/app/250900/workshop/).
+
+Under the hood, it uses [`steamcmd`](https://developer.valvesoftware.com/wiki/SteamCMD) to do this.
+
+Using this action to perform uploads in CI is useful because it allows for multiple people on a team to be able to trigger releases, and it allows for automated releases without having to use a GUI.
 
 <br />
 
-## Variables
+## First Publish
 
-This GitHub action accepts the following variables:
+This action can not be used to perform the first upload for your mod publish, since it needs to use an existing mod ID. Instead, use the bundled mod uploader that comes with the game for this purpose. By default, it is located at:
 
-- `metadata_xml_id` - Should be equal to the `id` field in your mod's "metadata.xml" file.
-- `mod_path` - The path to the directory that should be uploaded to the Steam Workshop. It is conventional to use a value of "mod" for this (which represents a subdirectory of "mod" from the root of the repository).
+```text
+C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools\ModUploader\ModUploader.exe
+```
+
+After publishing your mod for the first time, the `id` field will appear inside of your "metadata.xml" file. (This ID corresponds to the URL for your mod on the Steam Workshop.)
+
+<br />
+
+## `mod` Subdirectory
+
+This action assumes that your repository has a "mod" subdirectory that contains the files that will be published to the Steam Workshop:
+
+```text
+project/
+└── mod/
+    ├── main.lua
+    └── metadata.xml
+```
+
+The action will look in the "metadata.xml" file to find your mod's ID.
 
 <br />
 
@@ -59,9 +81,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: IsaacScript/isaac-steam-workshop-upload@v1
-        with:
-          metadata_xml_id: 2926446220
-          mod_path: mod
         env:
           STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
           STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
