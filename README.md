@@ -61,7 +61,7 @@ jobs:
       - uses: IsaacScript/isaac-steam-workshop-upload@v1
         with:
           metadata_xml_id: 2926446220
-          content_path: "mod"
+          mod_path: "mod"
         env:
           STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
           STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
