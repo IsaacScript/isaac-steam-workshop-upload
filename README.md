@@ -75,12 +75,17 @@ on:
       - main
 
 jobs:
-  publish_to_steam_workshop:
-    needs: [build_and_lint]
-    if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
+  build_and_lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: IsaacScript/isaac-steam-workshop-upload@v1
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      # Your other CI tasks would go here, such as building artifacts and linting.
+
+      - name: Upload the mod to Steam Workshop (if this is a release commit)
+        uses: IsaacScript/isaac-steam-workshop-upload@v1
+        if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
         env:
           STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
           STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
