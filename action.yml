@@ -1,4 +1,4 @@
-name: 'steam-workshop-upload'
+name: 'isaac-steam-workshop-upload'
 description: 'Upload a Binding of Isaac: Repentance mod to the Steam Workshop'
 
 branding:
