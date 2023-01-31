@@ -58,8 +58,7 @@ jobs:
     if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
     runs-on: ubuntu-latest
     steps:
-      - name: steam-workshop-upload
-        uses: IsaacScript/steam-workshop-upload@v1
+      - uses: IsaacScript/isaac-steam-workshop-upload@v1
         with:
           metadata_xml_id: 2926446220
           content_path: "mod"
