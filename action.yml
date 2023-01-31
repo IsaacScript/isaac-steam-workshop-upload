@@ -1,5 +1,5 @@
-name: 'workshop-upload'
-description: 'Upload to Steam workshop'
+name: 'steam-workshop-upload'
+description: 'Upload a Binding of Isaac: Repentance mod to the Steam Workshop'
 
 branding:
   icon: arrow-up
@@ -9,24 +9,13 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.appId }}
-    - ${{ inputs.itemId }}
-    - ${{ inputs.contentPath }}
-    - ${{ inputs.changelog }}
+    - ${{ inputs.metadata_xml_id }}
+    - ${{ inputs.mod_path }}
 
 inputs:
-  appId:
-    description: 'App id'
-    required: false
-    default: '107410'
-  changelog:
-    description: 'Changelog'
-    required: false
-    default: ''
-  itemId:
-    description: 'Workshop item id'
+  metadata_xml_id:
+    description: 'Should be equal to the `id` field in your mod's "metadata.xml" file.'
     required: true
-  contentPath:
-    description: 'Path of folder to upload'
+  mod_path:
+    description: 'The path to the directory that should be uploaded to the Steam Workshop. It is conventional to use a value of "mod" for this (which represents a subdirectory of "mod" from the root of the repository).'
     required: true
-
