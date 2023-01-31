@@ -1,25 +1,31 @@
 #!/bin/bash
 
-set -eu
-
-echo "Action ref: $GITHUB_ACTION_REF"
+set -e # Exit on any errors
+set -u # Treat unset variables as an error
 
 REPO=`pwd`
+MOD_PATH="$REPO/$2"
+
 export HOME=/home/steam
 cd $STEAMCMDDIR
+
+echo "isaac-steam-workshop-upload is uploading the following files from the directory of \"$MOD_PATH\":"
+ls -l "$MOD_PATH"
+echo
 
 cat << EOF > ./workshop.vdf
 "workshopitem"
 {
   "appid"            "250900"
   "publishedfileid"  "$1"
-  "contentfolder"    "$REPO/$2"
+  "contentfolder"    "$MOD_PATH"
 }
 EOF
 
 echo "isaac-steam-workshop-upload is using the following vdf file:"
 echo
 echo "$(cat ./workshop.vdf)"
+echo
 
 (/home/steam/steamcmd/steamcmd.sh \
     +login $STEAM_USERNAME $STEAM_PASSWORD $STEAM_GUARD_CODE \
