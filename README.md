@@ -30,12 +30,12 @@ Add secrets to your repository by following these steps:
 - Click on the "Secrets and variables" selection on the left menu.
 - Click on the "Actions" page.
 - Click on the "New repository secret" button in the top right.
-- For the "Name" box, use "STEAM_USERNAME" (without the quotes).
+- For the "Name" box, use: `STEAM_USERNAME`
 - For the "Secret" box, enter your username.
-- Repeat this process for "STEAM_PASSWORD".
+- Repeat this process for: `STEAM_PASSWORD`
 - Attempt to trigger the GitHub action. (See the below "Example Usage" section for more information.)
 - The action will fail due to Steam Guard being triggered. You should now get an email containing your Steam Guard token, which should be a 5 digit string something like "A1B2C".
-- Add this string as a repository secret for "STEAM_GUARD_CODE" (in the same way that you did for the "STEAM_USERNAME" and "STEAM_PASSWORD" earlier on).
+- Add this string as a repository secret for `STEAM_GUARD_CODE` (in the same way that you did for `STEAM_USERNAME` and `STEAM_PASSWORD` earlier on).
 - Attempt to trigger the GitHub action again, and it should work.
 
 <br />
