@@ -14,7 +14,7 @@ runs:
 
 inputs:
   metadata_xml_id:
-    description: 'Should be equal to the `id` field in your mod's "metadata.xml" file.'
+    description: 'Should be equal to the "id" field in your mod\'s "metadata.xml" file.'
     required: true
   mod_path:
     description: 'The path to the directory that should be uploaded to the Steam Workshop. It is conventional to use a value of "mod" for this (which represents a subdirectory of "mod" from the root of the repository).'
