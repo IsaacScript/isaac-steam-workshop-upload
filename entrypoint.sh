@@ -9,6 +9,7 @@ MOD_PATH="$REPO/$2"
 export HOME=/home/steam
 cd $STEAMCMDDIR
 
+ls -l # Debug
 echo "isaac-steam-workshop-upload is uploading the following files from the directory of \"$MOD_PATH\":"
 ls -l "$MOD_PATH"
 echo
