@@ -80,7 +80,7 @@ Under the hood, this GitHub action uses [`steamcmd`](https://developer.valvesoft
 
 This GitHub action requires that you first run `steamcmd` on your own, authenticate with it, and then copy paste the resulting `config.vdf` file as a GitHub secret under the name of `CONFIG_VDF_CONTENTS`.
 
-### How-To
+### Detailed How-To
 
 `steamcmd` can be run on either Windows or Linux, but we recommend that you use Linux. From a fresh Ubuntu Server, you can install it like this:
 
@@ -97,6 +97,8 @@ Next, run `steamcmd` and login:
 ```bash
 steamcmd +login foo +quit # Replace "foo" with your Steam username.
 ```
+
+You will be prompted for your password and the five digit Steam Guard code. If successful, the program will then exit.
 
 Next, print out the contents of the `~/Steam/config/config.vdf` file and put it in your clipboard:
 
