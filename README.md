@@ -92,18 +92,19 @@ sudo apt update
 sudo apt install steamcmd -y
 ```
 
-Next, run the following script:
+Next, run `steamcmd` and login:
 
 ```bash
-curl -o- https://raw.githubusercontent.com/IsaacScript/isaac-steam-workshop-upload/main/get_steamcmd_credentials.sh | bash
+steamcmd +login foo +quit # Replace "foo" with your Steam username.
 ```
 
-The script will:
+Next, print out the contents of the `~/Steam/config/config.vdf` file and put it in your clipboard:
 
-- run `steamcmd`, which will prompt you for your username + password + Steam Guard code
-- print out the contents of the `~/Steam/config/config.vdf` file
+```bash
+cat ~/Steam/config/config.vdf
+```
 
-Once you have the contents of the `config.vdf` file in your clipboard, add it as a repository secret by following these steps:
+Next, add it as a repository secret by following these steps:
 
 - Go to the main page for your GitHub repository.
 - Click on the "Settings" tab near the top.
