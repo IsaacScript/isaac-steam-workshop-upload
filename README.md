@@ -6,7 +6,7 @@ This GitHub action allows you to upload your _[Binding of Isaac: Repentance](htt
 
 Using this action to perform uploads in CI is useful because it allows for multiple people on a team to be able to trigger releases, and it allows for automated releases without having to manually use the GUI.
 
-<br />
+<br>
 
 ## Example Usage
 
@@ -38,7 +38,7 @@ jobs:
 
 Note that the action will only work if you have added the ["config.vdf" file as a repository secret](#authentication--steam-guard); see below.
 
-<br />
+<br>
 
 ## First Upload
 
@@ -50,7 +50,7 @@ C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\tools
 
 After uploading a mod for the first time, the `id` field will appear inside of the "metadata.xml" file. (This ID corresponds to the URL for the mod on the Steam Workshop.)
 
-<br />
+<br>
 
 ## `mod` Subdirectory
 
@@ -66,7 +66,7 @@ project/
 
 The action will look in the "metadata.xml" file to find your mod's ID.
 
-<br />
+<br>
 
 ## Authentication & Steam Guard
 
@@ -118,4 +118,12 @@ Next, add it as a repository secret by following these steps:
 
 Now, you can attempt to trigger the GitHub action to see if it works.
 
-<br />
+<br>
+
+## IsaacScript
+
+If you find this GitHub action useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever making a typo. Taken together, it makes for a dream-like Isaac development experience.
+
+For more information, see the [list of features](https://isaacscript.github.io/main/features). (If you don't know how to program in TypeScript, then you can learn in around [30 minutes](https://isaacscript.github.io/main/javascript-tutorial).)
+
+<br>
