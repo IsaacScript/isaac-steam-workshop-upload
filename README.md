@@ -12,6 +12,8 @@ Using this action to perform uploads in CI is useful because it allows for multi
 
 The following file showcases how you can use this GitHub action to automatically publish your mod whenever a commit is pushed to the repository main branch with a message containing "chore: release".
 
+(We recommend that you use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for your repository.)
+
 #### `.github/workflows/ci.yml`
 
 ```yml
