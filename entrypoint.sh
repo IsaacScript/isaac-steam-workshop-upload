@@ -30,6 +30,10 @@ echo
 echo "$(cat $WORKSHOP_VDF_PATH)"
 echo
 
+echo "--- DEBUG ---"
+find / -name config.vdf
+echo "--- DEBUG ---"
+
 export HOME=/home/steam
 cd $STEAMCMDDIR
 
