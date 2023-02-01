@@ -27,7 +27,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      # Your other CI tasks would go here, such as building artifacts and linting, if you have any.
+      # Your other CI tasks would go here, if you have any. (e.g. building artifacts, linting)
 
       - name: Upload the mod to Steam Workshop (if this is a release commit)
         uses: IsaacScript/isaac-steam-workshop-upload@v1
