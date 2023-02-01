@@ -11,6 +11,20 @@ METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
 METADATA_XML_ID=$(grep "<id>" "$METADATA_XML_PATH" | awk -F'[^0-9]+' '{ print $2 }')
 
+if [ -z $CONFIG_VDF_CONTENTS ]; then
+ echo "Error: The CONFIG_VDF_CONTENTS environment variable was blank."
+ exit 1
+fi
+
+# First, parse the provided "config.vdf" file for the Steam username.
+CONFIG_VDF_CONTENTS_NO_WHITESPACE=$(echo $CONFIG_VDF_CONTENTS | sed 's/[[:blank:]]//g')
+STEAM_USERNAME=$(echo $CONFIG_VDF_CONTENTS_NO_WHITESPACE | perl -lne 's/"Accounts"{"(.+?)"// or next; s/\s.*//; print $1')
+
+# Second, blow away the existing "config.vdf" file with the one provided by the end-user.
+CONFIG_VDF_PATH="/home/steam/Steam/config/config.vdf"
+echo $CONFIG_VDF_CONTENTS > $CONFIG_VDF_PATH
+
+# Create the temporary vdf file that steamcmd uses for the upload operation.
 WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
 cat << EOF > "$WORKSHOP_VDF_PATH"
 "workshopitem"
@@ -30,15 +44,11 @@ echo
 echo "$(cat $WORKSHOP_VDF_PATH)"
 echo
 
-echo "--- DEBUG ---"
-find / -name config.vdf
-echo "--- DEBUG ---"
-
 export HOME=/home/steam
 cd $STEAMCMDDIR
 
 (/home/steam/steamcmd/steamcmd.sh \
-    +login $STEAM_USERNAME $STEAM_PASSWORD $STEAM_GUARD_CODE \
+    +login $STEAM_USERNAME \
     +workshop_build_item $WORKSHOP_VDF_PATH \
     +quit \
 ) || (
