@@ -2,13 +2,6 @@
 
 set -e # Exit on any errors
 
-# Install steamcmd
-sudo apt install software-properties-common -y
-sudo add-apt-repository multiverse -y
-sudo dpkg --add-architecture i386
-sudo apt update
-sudo apt install steamcmd -y
-
 echo Enter your Steam username:
 read STEAM_USERNAME
 

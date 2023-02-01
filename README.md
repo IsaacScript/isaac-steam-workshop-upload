@@ -82,7 +82,17 @@ This GitHub action requires that you first run `steamcmd` on your own, authentic
 
 ### How-To
 
-`steamcmd` can be run on either Windows or Linux, but we recommend that you use Linux. From a fresh Ubuntu Server, run the following script:
+`steamcmd` can be run on either Windows or Linux, but we recommend that you use Linux. From a fresh Ubuntu Server, you can install it like this:
+
+```bash
+sudo apt install software-properties-common -y
+sudo add-apt-repository multiverse -y
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install steamcmd -y
+```
+
+Next, run the following script:
 
 ```bash
 curl -o- https://raw.githubusercontent.com/IsaacScript/isaac-steam-workshop-upload/main/get_steamcmd_credentials.sh | bash
@@ -90,7 +100,6 @@ curl -o- https://raw.githubusercontent.com/IsaacScript/isaac-steam-workshop-uplo
 
 The script will:
 
-- install `steamcmd`
 - run `steamcmd`, which will prompt you for your username + password + Steam Guard code
 - print out the contents of the `~/Steam/config/config.vdf` file
 
