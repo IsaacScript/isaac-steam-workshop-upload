@@ -82,7 +82,7 @@ This GitHub action requires that you first run `steamcmd` on your own, authentic
 
 ### How-To
 
-`steamcmd` can be run on either Windows or Linux, but we recommend that you use Linux. From a fresh Ubuntu Server, perform the following steps:
+`steamcmd` can be run on either Windows or Linux, but we recommend that you use Linux. From a fresh Ubuntu Server, run the following script:
 
 ```bash
 curl -o- https://raw.githubusercontent.com/IsaacScript/isaac-steam-workshop-upload/main/get_steamcmd_credentials.sh | bash
