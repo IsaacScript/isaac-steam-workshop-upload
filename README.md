@@ -68,7 +68,7 @@ The action will look in the "metadata.xml" file to find your mod's ID.
 
 ### Why?
 
-In your repository, it is important to make a string distinction between files that should be uploading to the Steam Workshop (e.g. "main.lua") and files that should not be uploaded to the Steam Workshop (e.g. ".git", "cspell.json"). The best way to make this distinction is with a subdirectory, which you should specifically name "mod" so that your mod will match the other repositories in the Isaac ecosystem.
+In your repository, it is important to make a strong distinction between files that should be uploading to the Steam Workshop (e.g. "main.lua") and files that should not be uploaded to the Steam Workshop (e.g. ".git", "cspell.json"). The best way to make this distinction is with a subdirectory, which you should specifically name "mod" so that your mod will match the other repositories in the Isaac ecosystem.
 
 Using a subdirectory is a [whitelist](https://en.wikipedia.org/wiki/Whitelist) approach. It would also be possible for this tool to use a [blacklist](https://en.wikipedia.org/wiki/Blacklisting) approach, such as a list of explicit files that should be ignored, or a reverse glob match. However, this approach is less safe: whenever you add a new file to the repository, you run the risk of accidentally pushing it to production if you forget to update the blacklist. Additionally, using a subdirectory offers a clearer mental delineation of what exactly in your repository is part of production and what is not.
 
