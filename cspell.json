@@ -13,13 +13,19 @@
     ".git/**"
   ],
   "words": [
+    "autocrlf",
     "contentfolder",
     "dpkg",
+    "isaacscript",
     "publishedfileid",
+    "sarisia",
     "steamapps",
     "steamcmd",
     "STEAMCMDDIR",
+    "technote",
     "workshopbuilds",
-    "workshopitem"
+    "workshopitem",
+    "Zamiell",
+    "zamts"
   ]
 }

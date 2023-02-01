@@ -1,0 +1,19 @@
+{
+  "name": "isaac-steam-workshop-upload",
+  "private": true,
+  "description": "Uploads Binding of Isaac: Repentance mods to the Steam Workshop.",
+  "homepage": "https://github.com/IsaacScript/isaac-steam-workshop-upload#readme",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaac-steam-workshop-upload/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaac-steam-workshop-upload.git"
+  },
+  "license": "GPL-3.0",
+  "author": "Zamiell",
+  "devDependencies": {
+    "isaacscript-lint": "^4.8.4",
+    "zamts": "^1.0.8"
+  }
+}
