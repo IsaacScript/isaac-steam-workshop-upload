@@ -28,6 +28,6 @@ echo "Now, copy everything in between the hyphens, which will be pasted into a G
 echo
 echo "------------------------------------------------------------------------"
 echo
-cat "~/Steam/config/config.vdf"
+cat "$CONFIG_VDF_PATH"
 echo
 echo "------------------------------------------------------------------------"
