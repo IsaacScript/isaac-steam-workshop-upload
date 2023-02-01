@@ -1,22 +1,18 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
-  "files": [
-    "**"
-  ],
-  "enableFiletypes": [
-    "*"
-  ],
+  "files": ["**"],
+  "enableFiletypes": ["*"],
   "enableGlobDot": true,
   "useGitignore": true,
-  "ignorePaths": [
-    ".git/**"
-  ],
+  "ignorePaths": [".git/**"],
   "words": [
     "autocrlf",
     "contentfolder",
     "dpkg",
+    "esbenp",
     "isaacscript",
+    "pnpm",
     "publishedfileid",
     "sarisia",
     "steamapps",
