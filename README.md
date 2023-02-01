@@ -74,11 +74,11 @@ The action will look in the "metadata.xml" file to find your mod's ID.
 
 "Steam Guard" is a feature that provides [two-factor authentication](https://en.wikipedia.org/wiki/Multi-factor_authentication) for Steam accounts. It makes it so that in order to log in, you must additionally provide a five digit code that is sent to your email address.
 
-Steam Guard applies by default to all Steam accounts. This means that simply providing this tool with your Steam username and password is not sufficient for it to actually be able to upload your mod, so a more complicated approach is necessary.
+Steam Guard applies by default to all Steam accounts. This means that simply providing this GitHub action with your Steam username and password is not sufficient for it to actually be able to upload your mod, so a more complicated approach is necessary.
 
-Under the hood, this tool uses [`steamcmd`](https://developer.valvesoftware.com/wiki/SteamCMD) to communicate with Steam. `steamcmd` handily caches the credentials that it uses, such that you only need to provide it with your password one time, and you only need to paste the five digit code from your email one time. It does this by putting encrypted data in the `~/Steam/config/config.vdf` file. (The `~` character is short for the home directory on Linux.)
+Under the hood, this GitHub action uses [`steamcmd`](https://developer.valvesoftware.com/wiki/SteamCMD) to communicate with Steam. `steamcmd` handily caches the credentials that it uses, such that you only need to provide it with your password one time, and you only need to paste the five digit code from your email one time. It does this by putting encrypted data in the `~/Steam/config/config.vdf` file. (The `~` character is short for the home directory on Linux.)
 
-This tool requires that you first run `steamcmd` on your own, authenticate with it, and then copy paste the resulting `config.vdf` file as a GitHub secret under the name of `CONFIG_VDF_CONTENTS`.
+This GitHub action requires that you first run `steamcmd` on your own, authenticate with it, and then copy paste the resulting `config.vdf` file as a GitHub secret under the name of `CONFIG_VDF_CONTENTS`.
 
 ### How-To
 
