@@ -91,8 +91,7 @@ curl -o- https://raw.githubusercontent.com/IsaacScript/isaac-steam-workshop-uplo
 The script will:
 
 - install `steamcmd`
-- run `steamcmd`
-- prompt you for your username + password + Steam Guard code
+- run `steamcmd`, which will prompt you for your username + password + Steam Guard code
 - print out the contents of the `~/Steam/config/config.vdf` file
 
 Once you have the contents of the `config.vdf` file in your clipboard, add it as a repository secret by following these steps:
