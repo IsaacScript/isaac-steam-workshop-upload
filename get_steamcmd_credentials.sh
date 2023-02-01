@@ -3,11 +3,11 @@
 set -e # Exit on any errors
 
 # Install steamcmd
-sudo apt install software-properties-common
-sudo add-apt-repository multiverse
+sudo apt install software-properties-common -y
+sudo add-apt-repository multiverse -y
 sudo dpkg --add-architecture i386
 sudo apt update
-sudo apt install steamcmd
+sudo apt install steamcmd -y
 
 echo Enter your Steam username:
 read STEAM_USERNAME
@@ -21,13 +21,13 @@ steamcmd \
   +login $STEAM_USERNAME \
   +quit \
 
-CONFIG_VDF_PATH="~/Steam/config/config.vdf"
+CONFIG_VDF_PATH=~/Steam/config/config.vdf
 
 echo "Authentication successful. Your encrypted credentials have been stored in this file: $CONFIG_VDF_PATH"
-echo "Now, copy everything in between the hyphens, which will be pasted into a GitHub secret."
+echo "Now, copy everything in between the hyphen lines, which will be pasted into a GitHub secret."
 echo
 echo "------------------------------------------------------------------------"
 echo
-cat "$CONFIG_VDF_PATH"
+cat $CONFIG_VDF_PATH
 echo
 echo "------------------------------------------------------------------------"
