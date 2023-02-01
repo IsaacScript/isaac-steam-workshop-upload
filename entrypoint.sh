@@ -11,7 +11,7 @@ METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
 METADATA_XML_ID=$(grep "<id>" "$METADATA_XML_PATH" | awk -F'[^0-9]+' '{ print $2 }')
 
-if [ -z $CONFIG_VDF_CONTENTS ]; then
+if [ -z "$CONFIG_VDF_CONTENTS" ]; then
  echo "Error: The CONFIG_VDF_CONTENTS environment variable was blank."
  exit 1
 fi
