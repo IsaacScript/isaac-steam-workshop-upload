@@ -28,8 +28,7 @@ echo $CONFIG_VDF_CONTENTS > $CONFIG_VDF_PATH
 
 # Parse the version from the commit message.
 # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
-# https://unix.stackexchange.com/questions/102008/how-do-i-trim-leading-and-trailing-whitespace-from-each-line-of-some-output
-VERSION=$(echo "$COMMIT_MESSAGE" | sed -e 's/^$chore: release//' | awk '{$1=$1};1')
+VERSION=$(echo "$COMMIT_MESSAGE" | sed -e 's/^\s*chore: release\s*//')
 
 # Create the temporary vdf file that steamcmd uses for the upload operation.
 WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
@@ -39,7 +38,6 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
   "appid"            "$ISAAC_APP_ID"
   "publishedfileid"  "$METADATA_XML_ID"
   "contentfolder"    "$MOD_PATH"
-  "changenote"       "$VERSION"
 }
 EOF
 
