@@ -10,12 +10,6 @@ REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
-echo "LOL!!!!!!!!!!!!!!!"
-echo "$COMMIT_MESSAGE"
-echo "LOL ZZ"
-echo "$MOD_PATH_RELATIVE"
-exit 1
-
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
 METADATA_XML_ID=$(grep "<id>" "$METADATA_XML_PATH" | awk -F'[^0-9]+' '{ print $2 }')
 
@@ -24,13 +18,18 @@ if [ -z "$CONFIG_VDF_CONTENTS" ]; then
  exit 1
 fi
 
-# First, parse the provided "config.vdf" file for the Steam username.
+# Parse the provided "config.vdf" file for the Steam username.
 CONFIG_VDF_CONTENTS_NO_WHITESPACE=$(echo $CONFIG_VDF_CONTENTS | sed 's/[[:blank:]]//g')
 STEAM_USERNAME=$(echo $CONFIG_VDF_CONTENTS_NO_WHITESPACE | perl -lne 's/"Accounts"{"(.+?)"// or next; s/\s.*//; print $1')
 
-# Second, blow away the existing "config.vdf" file with the one provided by the end-user.
+# Blow away the existing "config.vdf" file with the one provided by the end-user.
 CONFIG_VDF_PATH="/home/steam/Steam/config/config.vdf"
 echo $CONFIG_VDF_CONTENTS > $CONFIG_VDF_PATH
+
+# Parse the version from the commit message.
+# https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
+# https://unix.stackexchange.com/questions/102008/how-do-i-trim-leading-and-trailing-whitespace-from-each-line-of-some-output
+VERSION=$(echo "$COMMIT_MESSAGE" | sed -e 's/^$chore: release//' | awk '{$1=$1};1')
 
 # Create the temporary vdf file that steamcmd uses for the upload operation.
 WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
