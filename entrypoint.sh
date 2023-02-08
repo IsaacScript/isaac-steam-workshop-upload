@@ -11,6 +11,8 @@ METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
 echo "LOL!!!!!!!!!!!!!!!"
 echo "$COMMIT_MESSAGE"
+echo "LOL ZZ"
+echo "$MOD_PATH_RELATIVE"
 exit 1
 
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
