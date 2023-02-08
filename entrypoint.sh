@@ -61,12 +61,12 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
 EOF
 
 # Clean up files and directories that begin with a period.
-echo "isaac-steam-workshop-upload is removing the following hidden files from the directory of \"$MOD_PATH\" before uploading:"
+echo "isaac-steam-workshop-upload is removing the following hidden files/directories from the mod_path directory (\"$MOD_PATH\") before uploading:"
 ls -al "$MOD_PATH"/.[!.]*
 rm -rf "$MOD_PATH"/.[!.]*
 
 # Clean up files that were explicitly provided to us by the end-user.
-echo "isaac-steam-workshop-upload is removing the following ignored files from the directory of \"$MOD_PATH\" before uploading:"
+echo "isaac-steam-workshop-upload is removing the following ignored files/directions from the mod_path directory (\"$MOD_PATH\") before uploading:"
 IGNORE_FILES_ARRAY=(${IGNORE_FILES//,/ })
 for i in "${IGNORE_FILES_ARRAY[@]}"; do
   if [ ! -z "$i" ]; then
@@ -75,7 +75,7 @@ for i in "${IGNORE_FILES_ARRAY[@]}"; do
   fi
 done
 
-echo "isaac-steam-workshop-upload is uploading the following files from the directory of \"$MOD_PATH\":"
+echo "isaac-steam-workshop-upload is uploading the following files/directories from the mod_path directory (\"$MOD_PATH\"):"
 ls -al "$MOD_PATH"
 echo
 
