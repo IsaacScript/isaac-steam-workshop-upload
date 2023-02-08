@@ -22,6 +22,6 @@ inputs:
     required: false
     default: ""
   commit_message:
-    description: "Automatically set to the commit message corresponding to the commit that triggered this action."
+    description: "The commit that triggered this action. (This is automatically set and does not have to be specified.)"
     required: false
     default: ${{ github.event.head_commit.message }}

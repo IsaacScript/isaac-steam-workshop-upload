@@ -11,6 +11,22 @@ REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
+if [ ! -d "$MOD_PATH" ]; then
+  echo "Error: The specified \"mod_path\" is not a directory: $MOD_PATH"
+  echo "The contents of the current directory are:"
+  ls -l
+  exit 1
+fi
+
+if [ ! -f "$METADATA_XML_PATH" ]; then
+  echo "Error: The \"metadata.xml\" file was not found at: $METADATA_XML_PATH"
+  echo "The contents of the current directory are:"
+  ls -l
+  echo "The contents of the \"MOD_PATH\" directory are:"
+  ls -l "$MOD_PATH"
+  exit 1
+fi
+
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
 METADATA_XML_ID=$(grep "<id>" "$METADATA_XML_PATH" | awk -F'[^0-9]+' '{ print $2 }')
 
