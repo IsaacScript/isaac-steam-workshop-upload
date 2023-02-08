@@ -98,7 +98,7 @@ By default, this action will create a change note of:
 Version: {VERSION}
 ```
 
-Where `{VERSION}` is equal to the version of your mod reported in the commit message. For example, if you trigger the CI action with a commit message of: `chore: release 1.2.3`, then `1.2.3` would be written. (We assume that you are using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).)
+Where `{VERSION}` is equal to the version of your mod reported in the commit message. For example, if you trigger the CI action with a commit message of: `chore: release 1.2.3`, then `Version: 1.2.3` would be written. (We assume that you are using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).)
 
 If you want to customize this behavior, then you can use the `change_note` variable. For example:
 
