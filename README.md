@@ -134,6 +134,8 @@ If you find this GitHub action useful, you should consider using it in a TypeScr
 
 For more information, see the [list of features](https://isaacscript.github.io/main/features). (If you don't know how to program in TypeScript, then you can learn in around [30 minutes](https://isaacscript.github.io/main/javascript-tutorial).)
 
+<br>
+
 ## Prior Art
 
 You might also be interested in the following GitHub actions:
