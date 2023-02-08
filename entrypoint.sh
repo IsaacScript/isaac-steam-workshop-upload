@@ -60,17 +60,16 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
 }
 EOF
 
-# Clean up files and directories that begin with a period.
-echo "isaac-steam-workshop-upload is removing the following hidden files/directories from the mod_path directory (\"$MOD_PATH\") before uploading:"
-ls -al "$MOD_PATH"/.[!.]*
+# Remove files/directories that being with a period, if present.
 rm -rf "$MOD_PATH"/.[!.]*
 
-# Clean up files that were explicitly provided to us by the end-user.
-echo "isaac-steam-workshop-upload is removing the following ignored files/directions from the mod_path directory (\"$MOD_PATH\") before uploading:"
+# Remove the "disable.it" file, if present.
+rm -rf "$MOD_PATH/disable.it"
+
+# Remove files explicitly provided to us by the end-user.
 IGNORE_FILES_ARRAY=(${IGNORE_FILES//,/ })
 for i in "${IGNORE_FILES_ARRAY[@]}"; do
   if [ ! -z "$i" ]; then
-    ls -al "$MOD_PATH/$i"
     rm -rf "$MOD_PATH/$i"
   fi
 done

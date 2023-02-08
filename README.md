@@ -59,7 +59,10 @@ After uploading a mod for the first time, the `id` field will appear inside of t
 
 ## Ignored Files
 
-By default, this action will not upload any files or directories that begin with a period (e.g. `.git` or `.eslintrc.cjs`).
+By default, this action will not upload:
+
+- any files or directories that begin with a period (e.g. `.git` or `.eslintrc.cjs`)
+- the "disable.it" file, if it exists
 
 If you want to ignore additional files beyond that, you can use the `ignore_files` variable. This takes a comma separated list of files to ignore.
 
