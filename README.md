@@ -90,7 +90,7 @@ with:
 
 On the main page of the Steam Workshop for your mod, you will see a "Change Notes" tab that lists every version of the mod that has been uploaded. This is a place where people conventionally write messages about what they have changed.
 
-It is recommended that you do NOT use this feature of the Steam Workshop, because change logs should be tracked in version control alongside all of your other code.
+It is recommended that you do NOT use this feature of the Steam Workshop, because change logs should be tracked in version control alongside all of your other code. (Users should be redirected to your GitHub repository if they are looking to know what exactly changed in each update.)
 
 By default, this action will create a change note of:
 
