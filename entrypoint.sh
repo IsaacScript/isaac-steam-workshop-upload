@@ -4,6 +4,7 @@ set -e # Exit on any errors.
 set -u # Treat unset variables as an error.
 
 MOD_PATH_RELATIVE="$1"
+COMMIT_MESSAGE="$2"
 ISAAC_APP_ID="250900"
 REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
