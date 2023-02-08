@@ -8,9 +8,10 @@ branding:
 runs:
   using: docker
   image: Dockerfile
+  env:
+    COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
   args:
     - ${{ inputs.mod_path }}
-    - ${{ github.event.head_commit.message }}
 
 inputs:
   mod_path:
