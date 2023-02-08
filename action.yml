@@ -5,15 +5,28 @@ branding:
   icon: arrow-up
   color: gray-dark
 
-runs:
-  using: docker
-  image: Dockerfile
-  env:
-    COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-  args:
-    - ${{ inputs.mod_path }}
-
 inputs:
   mod_path:
     description: "The path to the subdirectory of the repository that should be uploaded to the Steam Workshop."
     required: true
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository contents
+        uses: actions/checkout@v3
+
+      - name: Upload mod to Steam Workshop
+        uses: docker
+        image: Dockerfile
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        args:
+          - ${{ inputs.mod_path }}
