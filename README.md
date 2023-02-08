@@ -32,11 +32,16 @@ jobs:
       - name: Upload the mod to Steam Workshop (if this is a release commit)
         uses: IsaacScript/isaac-steam-workshop-upload@v1
         if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
+        with:
+          mod_path: mod
         env:
           CONFIG_VDF_CONTENTS: ${{ secrets.CONFIG_VDF_CONTENTS }}
 ```
 
-Note that the action will only work if you have added the ["config.vdf" file as a repository secret](#authentication--steam-guard); see below.
+Note that:
+
+- `mod_path` is a configuration value that specifies what subdirectory of the repository will be uploaded to the Steam Workshop. If you want the base of your repository to be uploaded, use a value of: `.`
+- `CONFIG_VDF_CONTENTS` refers to a GitHub repository secret that contains the "config.vdf" file with your Steam credentials. See the [authentication section below](#authentication--steam-guard);
 
 <br>
 
@@ -52,29 +57,9 @@ After uploading a mod for the first time, the `id` field will appear inside of t
 
 <br>
 
-## `mod` Subdirectory
+## Ignored Files
 
-This action assumes that your repository has a "mod" subdirectory that contains the files that will be published to the Steam Workshop. Thus, your repository should look something like this:
-
-```text
-project/
-├── .git/
-└── mod/
-    ├── main.lua
-    └── metadata.xml
-```
-
-The action will look in the "metadata.xml" file to find your mod's ID.
-
-### Why?
-
-In your repository, it is important to make a strong distinction between files that should be uploading to the Steam Workshop (e.g. "main.lua") and files that should not be uploaded to the Steam Workshop (e.g. ".git", "cspell.json"). The best way to make this distinction is with a subdirectory, which you should specifically name "mod" so that your mod will match the other repositories in the Isaac ecosystem.
-
-Using a subdirectory is a [whitelist](https://en.wikipedia.org/wiki/Whitelist) approach. It would also be possible for this tool to use a [blacklist](https://en.wikipedia.org/wiki/Blacklisting) approach, such as a list of explicit files that should be ignored, or a reverse glob match. However, this approach is less safe: whenever you add a new file to the repository, you run the risk of accidentally pushing it to production if you forget to update the blacklist. Additionally, using a subdirectory offers a clearer mental delineation of what exactly in your repository is part of production and what is not.
-
-For these reasons, this behavior is not customizable. We want the tool to prevent users from shooting themselves in the foot and encourage everyone to use best practices. If your mod does not already use this convention, we strongly encourage you to switch.
-
-(Some users don't like this convention because they want their mod to be easily installable from a zip file. If this is the case, then [GitHub releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) should be used to allow for a download of a zip file that only contains the "mod" subdirectory.)
+By default, this action will not upload any files or directories that begin with a period (e.g. `.git` or `.eslintrc.cjs`).
 
 <br>
 
@@ -135,5 +120,13 @@ Now, you can attempt to trigger the GitHub action to see if it works.
 If you find this GitHub action useful, you should consider using it in a TypeScript mod. TypeScript has the advantage of auto-complete, auto-importing, and the compiler preventing you from ever making a typo. Taken together, it makes for a dream-like Isaac development experience.
 
 For more information, see the [list of features](https://isaacscript.github.io/main/features). (If you don't know how to program in TypeScript, then you can learn in around [30 minutes](https://isaacscript.github.io/main/javascript-tutorial).)
+
+## Prior Art
+
+You might also be interested in the following GitHub actions:
+
+- [Steam Deploy](https://github.com/game-ci/steam-deploy)
+- [Steam Workshop Upload](https://github.com/Weilbyte/steam-workshop-upload)
+- [Steam Workshop Upload Action](https://github.com/arma-actions/workshop-upload)
 
 <br>

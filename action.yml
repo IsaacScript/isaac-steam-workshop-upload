@@ -8,3 +8,10 @@ branding:
 runs:
   using: docker
   image: Dockerfile
+  args:
+    - ${{ inputs.mod_path }}
+
+inputs:
+  mod_path:
+    description: "The path to the subdirectory of the repository that should be uploaded to the Steam Workshop."
+    required: true

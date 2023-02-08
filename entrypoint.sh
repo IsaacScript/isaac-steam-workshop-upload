@@ -1,11 +1,12 @@
 #!/bin/bash
 
-set -e # Exit on any errors
-set -u # Treat unset variables as an error
+set -e # Exit on any errors.
+set -u # Treat unset variables as an error.
 
+MOD_PATH_RELATIVE="$1"
 ISAAC_APP_ID="250900"
 REPO_PATH=`pwd`
-MOD_PATH="$REPO_PATH/mod"
+MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
@@ -24,6 +25,9 @@ STEAM_USERNAME=$(echo $CONFIG_VDF_CONTENTS_NO_WHITESPACE | perl -lne 's/"Account
 CONFIG_VDF_PATH="/home/steam/Steam/config/config.vdf"
 echo $CONFIG_VDF_CONTENTS > $CONFIG_VDF_PATH
 
+env
+exit 1
+
 # Create the temporary vdf file that steamcmd uses for the upload operation.
 WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
 cat << EOF > "$WORKSHOP_VDF_PATH"
@@ -32,6 +36,7 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
   "appid"            "$ISAAC_APP_ID"
   "publishedfileid"  "$METADATA_XML_ID"
   "contentfolder"    "$MOD_PATH"
+  "changenote"       "$VERSION"
 }
 EOF
 
