@@ -38,6 +38,7 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
   "appid"            "$ISAAC_APP_ID"
   "publishedfileid"  "$METADATA_XML_ID"
   "contentfolder"    "$MOD_PATH"
+  "changenote"       "$VERSION"
 }
 EOF
 
