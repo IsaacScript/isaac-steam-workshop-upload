@@ -4,10 +4,15 @@ set -e # Exit on any errors.
 set -u # Treat unset variables as an error.
 
 MOD_PATH_RELATIVE="$1"
+COMMIT_MESSAGE="$2"
 ISAAC_APP_ID="250900"
 REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
+
+echo "LOL!!!!!!!!!!!!!!!"
+echo "$COMMIT_MESSAGE"
+exit 1
 
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
 METADATA_XML_ID=$(grep "<id>" "$METADATA_XML_PATH" | awk -F'[^0-9]+' '{ print $2 }')
@@ -24,9 +29,6 @@ STEAM_USERNAME=$(echo $CONFIG_VDF_CONTENTS_NO_WHITESPACE | perl -lne 's/"Account
 # Second, blow away the existing "config.vdf" file with the one provided by the end-user.
 CONFIG_VDF_PATH="/home/steam/Steam/config/config.vdf"
 echo $CONFIG_VDF_CONTENTS > $CONFIG_VDF_PATH
-
-env
-exit 1
 
 # Create the temporary vdf file that steamcmd uses for the upload operation.
 WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
