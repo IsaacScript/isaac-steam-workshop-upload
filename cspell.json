@@ -5,13 +5,22 @@
   "enableFiletypes": ["*"],
   "enableGlobDot": true,
   "useGitignore": true,
-  "ignorePaths": [".git/**"],
+  "ignorePaths": [
+    "*.pyc",
+    ".git/**",
+    "dist/**",
+    "node_modules/**",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock"
+  ],
   "words": [
     "autocrlf",
     "contentfolder",
     "dpkg",
     "esbenp",
     "isaacscript",
+    "loglevel",
     "pnpm",
     "publishedfileid",
     "sarisia",
