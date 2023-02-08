@@ -16,6 +16,6 @@ inputs:
     description: "The path to the subdirectory of the repository that should be uploaded to the Steam Workshop."
     required: true
   commit_message:
-    description: "Automatically set to: ${{ github.event.head_commit.message }}"
+    description: "Automatically set to the commit message corresponding to the commit that triggered this action."
     required: false
     default: ${{ github.event.head_commit.message }}
