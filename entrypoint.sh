@@ -12,7 +12,7 @@ MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
 echo "The contents of the current directory (\"REPO_PATH\") are:"
-ls -l
+ls -al
 echo
 
 if [ ! -d "$MOD_PATH" ]; then
@@ -20,7 +20,7 @@ if [ ! -d "$MOD_PATH" ]; then
 fi
 
 echo "The contents of the mod_path (\"MOD_PATH\") directory are:"
-ls -l "$MOD_PATH"
+ls -al "$MOD_PATH"
 echo
 
 if [ ! -f "$METADATA_XML_PATH" ]; then
@@ -65,13 +65,13 @@ echo "isaac-steam-workshop-upload is removing the following ignored files from t
 IGNORE_FILES_ARRAY=(${IGNORE_FILES//,/ })
 for i in "${IGNORE_FILES_ARRAY[@]}"; do
   if [ ! -z "$i" ]; then
-    ls -l "$MOD_PATH/$i"
+    ls -al "$MOD_PATH/$i"
     rm -rf "$MOD_PATH/$i"
   fi
 done
 
 echo "isaac-steam-workshop-upload is uploading the following files from the directory of \"$MOD_PATH\":"
-ls -l "$MOD_PATH"
+ls -al "$MOD_PATH"
 echo
 
 echo "isaac-steam-workshop-upload is using the following vdf file:"
