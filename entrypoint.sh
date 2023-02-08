@@ -5,7 +5,9 @@ set -u # Treat unset variables as an error.
 
 MOD_PATH_RELATIVE="$1"
 IGNORE_FILES="$2"
-COMMIT_MESSAGE="$3"
+CHANGE_NOTE="$3"
+COMMIT_MESSAGE="$4"
+
 ISAAC_APP_ID="250900"
 REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
@@ -48,6 +50,8 @@ echo $CONFIG_VDF_CONTENTS > $CONFIG_VDF_PATH
 # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
 VERSION=$(echo "$COMMIT_MESSAGE" | sed -e 's/^\s*chore: release\s*//')
 
+FILLED_CHANGE_NOTE=$(echo $CHANGE_NOTE | sed -e "s/{VERSION}/$VERSION/g")
+
 # Create the temporary vdf file that steamcmd uses for the upload operation.
 WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
 cat << EOF > "$WORKSHOP_VDF_PATH"
@@ -56,7 +60,7 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
   "appid"            "$ISAAC_APP_ID"
   "publishedfileid"  "$METADATA_XML_ID"
   "contentfolder"    "$MOD_PATH"
-  "changenote"       "$VERSION"
+  "changenote"       "$FILLED_CHANGE_NOTE"
 }
 EOF
 

@@ -11,6 +11,7 @@ runs:
   args:
     - ${{ inputs.mod_path }}
     - ${{ inputs.ignore_files }}
+    - ${{ inputs.change_note }}
     - ${{ inputs.commit_message }}
 
 inputs:
@@ -21,6 +22,10 @@ inputs:
     description: "A comma separated list of the files to ignore, if any."
     required: false
     default: ""
+  change_note:
+    description: "The description of"
+    required: false
+    default: "Version: {VERSION}"
   commit_message:
     description: "The commit that triggered this action. (This is automatically set and does not have to be specified.)"
     required: false

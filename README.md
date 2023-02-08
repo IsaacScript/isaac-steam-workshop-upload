@@ -33,15 +33,25 @@ jobs:
         uses: IsaacScript/isaac-steam-workshop-upload@v1
         if: "contains(github.event.head_commit.message, 'chore: release') && github.event_name != 'pull_request'"
         with:
-          mod_path: mod
+          mod_path: .
         env:
           CONFIG_VDF_CONTENTS: ${{ secrets.CONFIG_VDF_CONTENTS }}
 ```
 
 Note that:
 
-- `mod_path` is a configuration value that specifies what subdirectory of the repository will be uploaded to the Steam Workshop. If you want the base of your repository to be uploaded, use a value of: `.`
-- `CONFIG_VDF_CONTENTS` refers to a GitHub repository secret that contains the "config.vdf" file with your Steam credentials. See the [authentication section below](#authentication--steam-guard);
+- `mod_path` refers to the directory to upload. See the [variables section](#list-of-variables) below.
+- `CONFIG_VDF_CONTENTS` refers to a GitHub repository secret that contains the "config.vdf" file with your Steam credentials. See the [authentication section](#authentication--steam-guard) below.
+
+<br>
+
+## List of Variables
+
+- `mod_path` - Required. Represents the subdirectory of the repository that will be uploaded to the Steam Workshop. IsaacScript mods should use a value of `mod`. If you want the base of your repository to be uploaded, use a value of: `.`
+- `ignore_files` - Optional. See the [section on ignored files](#ignored-files) below.
+- `change_note` - Optional. The message to write to the "Change Notes" tab on the Steam Workshop. See the [section on change notes](#change-notes) below.
+
+For environment variables / GitHub repository secrets, see the [authentication section](#authentication--steam-guard) below.
 
 <br>
 
@@ -70,8 +80,40 @@ For example:
 
 ```yml
 with:
-  mod_path: mod
+  mod_path: .
   ignore_files: cspell.json,release.py
+```
+
+<br>
+
+## Change Notes
+
+On the main page of the Steam Workshop for your mod, you will see a "Change Notes" tab that lists every version of the mod that has been uploaded. This is a place where people conventionally write messages about what they have changed.
+
+It is recommended that you do NOT use this feature of the Steam Workshop, because change logs should be tracked in version control alongside all of your other code.
+
+By default, this action will create a change note of:
+
+```text
+Version: {VERSION}
+```
+
+Where `{VERSION}` is equal to the version of your mod reported in the commit message. For example, if you trigger the CI action with a commit message of: `chore: release 1.2.3`, then `1.2.3` would be written. (We assume that you are using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).)
+
+If you want to customize this behavior, then you can use the `change_note` variable. For example:
+
+```yml
+with:
+  mod_path: .
+  change_note: "Changes for this mod are [url=https://github.com/wofsauge/External-Item-Descriptions/releases]tracked on GitHub[/url]."
+```
+
+Additionally, you can use the special string of `{VERSION}` in your message, which will get automatically filled with the version from the release commit. (Again, the parser assumes that you are using conventional commits.) For example:
+
+```yml
+with:
+  mod_path: .
+  change_note: "Version: {VERSION}\n\nChanges for this mod are [url=https://github.com/wofsauge/External-Item-Descriptions/releases]tracked on GitHub[/url]."
 ```
 
 <br>
