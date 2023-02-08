@@ -11,7 +11,7 @@ REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
-echo "The contents of the current directory (\"REPO_PATH\") are:"
+echo "The contents of the current directory (\"$REPO_PATH\") are:"
 ls -al
 echo
 
@@ -19,7 +19,7 @@ if [ ! -d "$MOD_PATH" ]; then
   echo "Error: The specified \"mod_path\" is not a directory: $MOD_PATH"
 fi
 
-echo "The contents of the mod_path (\"MOD_PATH\") directory are:"
+echo "The contents of the mod_path (\"$MOD_PATH\") directory are:"
 ls -al "$MOD_PATH"
 echo
 
