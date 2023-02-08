@@ -10,6 +10,7 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.mod_path }}
+    - ${{ inputs.commit_message }}
 
 inputs:
   mod_path:
