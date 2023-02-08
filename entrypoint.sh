@@ -11,19 +11,20 @@ REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
+echo "The contents of the current directory (\"REPO_PATH\") are:"
+ls -l
+echo
+
 if [ ! -d "$MOD_PATH" ]; then
   echo "Error: The specified \"mod_path\" is not a directory: $MOD_PATH"
-  echo "The contents of the current directory are:"
-  ls -l
-  exit 1
 fi
+
+echo "The contents of the mod_path (\"MOD_PATH\") directory are:"
+ls -l "$MOD_PATH"
+echo
 
 if [ ! -f "$METADATA_XML_PATH" ]; then
   echo "Error: The \"metadata.xml\" file was not found at: $METADATA_XML_PATH"
-  echo "The contents of the current directory are:"
-  ls -l
-  echo "The contents of the \"MOD_PATH\" directory are:"
-  ls -l "$MOD_PATH"
   exit 1
 fi
 
@@ -58,11 +59,6 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
   "changenote"       "$VERSION"
 }
 EOF
-
-# Clean up files that begin with a period.
-echo "isaac-steam-workshop-upload is removing the following hidden files from the directory of \"$MOD_PATH\" before uploading:"
-ls -l "$MOD_PATH/.*"
-rm -rf "$MOD_PATH/.*"
 
 # Clean up files that were explicitly provided to us by the end-user.
 echo "isaac-steam-workshop-upload is removing the following ignored files from the directory of \"$MOD_PATH\" before uploading:"
