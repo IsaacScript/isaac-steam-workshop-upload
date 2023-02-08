@@ -10,12 +10,17 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.mod_path }}
+    - ${{ inputs.ignore_files }}
     - ${{ inputs.commit_message }}
 
 inputs:
   mod_path:
     description: "The path to the subdirectory of the repository that should be uploaded to the Steam Workshop."
     required: true
+  ignore_files:
+    description: "A comma separated list of the files to ignore, if any."
+    required: false
+    default: ""
   commit_message:
     description: "Automatically set to the commit message corresponding to the commit that triggered this action."
     required: false

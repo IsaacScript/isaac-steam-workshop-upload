@@ -61,6 +61,16 @@ After uploading a mod for the first time, the `id` field will appear inside of t
 
 By default, this action will not upload any files or directories that begin with a period (e.g. `.git` or `.eslintrc.cjs`).
 
+If you want to ignore additional files beyond that, you can use the `ignore_files` variable. This takes a comma separated list of files to ignore.
+
+For example:
+
+```yml
+with:
+  mod_path: mod
+  ignore_files: cspell.json,release.py
+```
+
 <br>
 
 ## Authentication & Steam Guard

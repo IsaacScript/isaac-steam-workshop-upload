@@ -4,7 +4,8 @@ set -e # Exit on any errors.
 set -u # Treat unset variables as an error.
 
 MOD_PATH_RELATIVE="$1"
-COMMIT_MESSAGE="$2"
+IGNORE_FILES="$2"
+COMMIT_MESSAGE="$3"
 ISAAC_APP_ID="250900"
 REPO_PATH=`pwd`
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
@@ -41,6 +42,21 @@ cat << EOF > "$WORKSHOP_VDF_PATH"
   "changenote"       "$VERSION"
 }
 EOF
+
+# Clean up files that begin with a period.
+echo "isaac-steam-workshop-upload is removing the following hidden files from the directory of \"$MOD_PATH\" before uploading:"
+ls -l "$MOD_PATH/.*"
+rm -rf "$MOD_PATH/.*"
+
+# Clean up files that were explicitly provided to us by the end-user.
+echo "isaac-steam-workshop-upload is removing the following ignored files from the directory of \"$MOD_PATH\" before uploading:"
+IGNORE_FILES_ARRAY=(${IGNORE_FILES//,/ })
+for i in "${IGNORE_FILES_ARRAY[@]}"; do
+  if [ ! -z "$i" ]; then
+    ls -l "$MOD_PATH/$i"
+    rm -rf "$MOD_PATH/$i"
+  fi
+done
 
 echo "isaac-steam-workshop-upload is uploading the following files from the directory of \"$MOD_PATH\":"
 ls -l "$MOD_PATH"
