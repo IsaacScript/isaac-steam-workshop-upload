@@ -16,17 +16,17 @@ runs:
 
 inputs:
   mod_path:
-    description: "The path to the subdirectory of the repository that should be uploaded to the Steam Workshop."
+    description: The path to the subdirectory of the repository that should be uploaded to the Steam Workshop.
     required: true
   ignore_files:
-    description: "A comma separated list of the files to ignore, if any."
+    description: A comma separated list of the files to ignore, if any.
     required: false
     default: ""
   change_note:
-    description: "The description of"
+    description: The message to write to the "Change Notes" tab on the Steam Workshop.
     required: false
     default: "Version: {VERSION}"
   commit_message:
-    description: "The commit that triggered this action. (This is automatically set and does not have to be specified.)"
+    description: The commit that triggered this action. (This is automatically set and does not have to be specified.)
     required: false
     default: ${{ github.event.head_commit.message }}
