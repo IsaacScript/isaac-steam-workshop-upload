@@ -18,7 +18,7 @@ echo "The contents of the current directory (\"$REPO_PATH\") are:"
 ls -al
 echo
 
-if [ ! -d "$MOD_PATH" ]; then
+if [[ ! -d "$MOD_PATH" ]]; then
   echo "Error: The specified \"mod_path\" is not a directory: $MOD_PATH"
 fi
 
@@ -26,7 +26,7 @@ echo "The contents of the mod_path (\"$MOD_PATH\") directory are:"
 ls -al "$MOD_PATH"
 echo
 
-if [ ! -f "$METADATA_XML_PATH" ]; then
+if [[ ! -f "$METADATA_XML_PATH" ]]; then
   echo "Error: The \"metadata.xml\" file was not found at: $METADATA_XML_PATH"
   exit 1
 fi
@@ -34,14 +34,19 @@ fi
 # https://stackoverflow.com/questions/5811753/extract-the-first-number-from-a-string
 METADATA_XML_ID=$(grep "<id>" "$METADATA_XML_PATH" | awk -F'[^0-9]+' '{ print $2 }')
 
-if [ -z "$CONFIG_VDF_CONTENTS" ]; then
+if [[ -z "$CONFIG_VDF_CONTENTS" ]]; then
  echo "Error: The CONFIG_VDF_CONTENTS environment variable was blank."
  exit 1
 fi
 
 # Parse the provided "config.vdf" file for the Steam username.
-CONFIG_VDF_CONTENTS_NO_WHITESPACE=$(echo "$CONFIG_VDF_CONTENTS" | sed 's/[[:blank:]]//g')
-STEAM_USERNAME=$(echo "$CONFIG_VDF_CONTENTS_NO_WHITESPACE" | perl -lne 's/"Accounts"{"(.+?)"// or next; s/\s.*//; print $1')
+# (The below variables cannot be quoted or else they will not work properly.)
+CONFIG_VDF_CONTENTS_NO_WHITESPACE=$(echo $CONFIG_VDF_CONTENTS | sed 's/[[:blank:]]//g')
+STEAM_USERNAME=$(echo $CONFIG_VDF_CONTENTS_NO_WHITESPACE | perl -lne 's/"Accounts"{"(.+?)"// or next; s/\s.*//; print $1')
+if [[ -z "$STEAM_USERNAME" ]]; then
+ echo "Error: Failed to parse the Steam username from the \"CONFIG_VDF_CONTENTS\" environment variable."
+ exit 1
+fi
 echo "Parsed the Steam username from the \"config.vdf\" file: $STEAM_USERNAME"
 
 # Blow away the existing "config.vdf" file with the one provided by the end-user.
@@ -75,7 +80,7 @@ rm -rf "$MOD_PATH/disable.it"
 # Remove files explicitly provided to us by the end-user.
 IGNORE_FILES_ARRAY=("${IGNORE_FILES//,/ }")
 for i in "${IGNORE_FILES_ARRAY[@]}"; do
-  if [ -n "$i" ]; then
+  if [[ -n "$i" ]]; then
     rm -rf "${MOD_PATH:?}/$i"
   fi
 done
