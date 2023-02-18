@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# shellcheck disable=SC2001
+# shellcheck disable=SC2001,SC2086
 
 set -euo pipefail # Exit on errors and undefined variables.
 
@@ -42,6 +42,7 @@ fi
 # Parse the provided "config.vdf" file for the Steam username.
 CONFIG_VDF_CONTENTS_NO_WHITESPACE=$(echo "$CONFIG_VDF_CONTENTS" | sed 's/[[:blank:]]//g')
 STEAM_USERNAME=$(echo "$CONFIG_VDF_CONTENTS_NO_WHITESPACE" | perl -lne 's/"Accounts"{"(.+?)"// or next; s/\s.*//; print $1')
+echo "Parsed the Steam username from the \"config.vdf\" file: $STEAM_USERNAME"
 
 # Blow away the existing "config.vdf" file with the one provided by the end-user.
 CONFIG_VDF_PATH="/home/steam/Steam/config/config.vdf"
@@ -91,9 +92,10 @@ echo
 export HOME=/home/steam
 cd "$STEAMCMDDIR"
 
+# The variables here cannot be quoted or else they will appear empty.
 (/home/steam/steamcmd/steamcmd.sh \
-    +login "$STEAM_USERNAME" \
-    +workshop_build_item "$WORKSHOP_VDF_PATH" \
+    +login $STEAM_USERNAME \
+    +workshop_build_item $WORKSHOP_VDF_PATH \
     +quit \
 ) || (
     # https://partner.steamgames.com/doc/features/workshop/implementation#SteamCmd
