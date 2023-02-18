@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e # Exit on any errors.
-set -u # Treat unset variables as an error.
+set -euo pipefail # Exit on errors and undefined variables.
 
 MOD_PATH_RELATIVE="$1"
 IGNORE_FILES="$2"
@@ -9,7 +8,7 @@ CHANGE_NOTE="$3"
 COMMIT_MESSAGE="$4"
 
 ISAAC_APP_ID="250900"
-REPO_PATH=`pwd`
+REPO_PATH=$(pwd)
 MOD_PATH="$REPO_PATH/$MOD_PATH_RELATIVE"
 METADATA_XML_PATH="$MOD_PATH/metadata.xml"
 
@@ -84,7 +83,7 @@ echo
 
 echo "isaac-steam-workshop-upload is using the following vdf file:"
 echo
-echo "$(cat $WORKSHOP_VDF_PATH)"
+cat "$WORKSHOP_VDF_PATH"
 echo
 
 export HOME=/home/steam
