@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# shellcheck disable=SC2001
+
 set -euo pipefail # Exit on errors and undefined variables.
 
 MOD_PATH_RELATIVE="$1"
@@ -38,18 +40,18 @@ if [ -z "$CONFIG_VDF_CONTENTS" ]; then
 fi
 
 # Parse the provided "config.vdf" file for the Steam username.
-CONFIG_VDF_CONTENTS_NO_WHITESPACE=$(echo $CONFIG_VDF_CONTENTS | sed 's/[[:blank:]]//g')
-STEAM_USERNAME=$(echo $CONFIG_VDF_CONTENTS_NO_WHITESPACE | perl -lne 's/"Accounts"{"(.+?)"// or next; s/\s.*//; print $1')
+CONFIG_VDF_CONTENTS_NO_WHITESPACE=$(echo "$CONFIG_VDF_CONTENTS" | sed 's/[[:blank:]]//g')
+STEAM_USERNAME=$(echo "$CONFIG_VDF_CONTENTS_NO_WHITESPACE" | perl -lne 's/"Accounts"{"(.+?)"// or next; s/\s.*//; print $1')
 
 # Blow away the existing "config.vdf" file with the one provided by the end-user.
 CONFIG_VDF_PATH="/home/steam/Steam/config/config.vdf"
-echo $CONFIG_VDF_CONTENTS > $CONFIG_VDF_PATH
+echo "$CONFIG_VDF_CONTENTS" > "$CONFIG_VDF_PATH"
 
 # Parse the version from the commit message.
 # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
 VERSION=$(echo "$COMMIT_MESSAGE" | sed -e 's/^\s*chore: release\s*//')
 
-FILLED_CHANGE_NOTE=$(echo $CHANGE_NOTE | sed -e "s/{VERSION}/$VERSION/g")
+FILLED_CHANGE_NOTE=$(echo "$CHANGE_NOTE" | sed -e "s/{VERSION}/$VERSION/g")
 
 # Create the temporary vdf file that steamcmd uses for the upload operation.
 WORKSHOP_VDF_PATH="/tmp/workshop.vdf"
@@ -70,10 +72,10 @@ rm -rf "$MOD_PATH"/.[!.]*
 rm -rf "$MOD_PATH/disable.it"
 
 # Remove files explicitly provided to us by the end-user.
-IGNORE_FILES_ARRAY=(${IGNORE_FILES//,/ })
+IGNORE_FILES_ARRAY=("${IGNORE_FILES//,/ }")
 for i in "${IGNORE_FILES_ARRAY[@]}"; do
-  if [ ! -z "$i" ]; then
-    rm -rf "$MOD_PATH/$i"
+  if [ -n "$i" ]; then
+    rm -rf "${MOD_PATH:?}/$i"
   fi
 done
 
@@ -87,22 +89,22 @@ cat "$WORKSHOP_VDF_PATH"
 echo
 
 export HOME=/home/steam
-cd $STEAMCMDDIR
+cd "$STEAMCMDDIR"
 
 (/home/steam/steamcmd/steamcmd.sh \
-    +login $STEAM_USERNAME \
-    +workshop_build_item $WORKSHOP_VDF_PATH \
+    +login "$STEAM_USERNAME" \
+    +workshop_build_item "$WORKSHOP_VDF_PATH" \
     +quit \
 ) || (
     # https://partner.steamgames.com/doc/features/workshop/implementation#SteamCmd
-    echo /home/steam/Steam/logs/stderr.txt
-    echo "$(cat /home/steam/Steam/logs/stderr.txt)"
+    echo "/home/steam/Steam/logs/stderr.txt"
+    cat "/home/steam/Steam/logs/stderr.txt"
     echo
-    echo /home/steam/Steam/logs/workshop_log.txt
-    echo "$(cat /home/steam/Steam/logs/workshop_log.txt)"
+    echo "/home/steam/Steam/logs/workshop_log.txt"
+    cat "/home/steam/Steam/logs/workshop_log.txt"
     echo
-    echo /home/steam/Steam/workshopbuilds/depot_build_$ISAAC_APP_ID.log
-    echo "$(cat /home/steam/Steam/workshopbuilds/depot_build_$ISAAC_APP_ID.log)"
+    echo "/home/steam/Steam/workshopbuilds/depot_build_$ISAAC_APP_ID.log"
+    cat "/home/steam/Steam/workshopbuilds/depot_build_$ISAAC_APP_ID.log"
 
     exit 1
 )
