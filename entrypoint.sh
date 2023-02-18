@@ -45,7 +45,7 @@ STEAM_USERNAME=$(echo "$CONFIG_VDF_CONTENTS_NO_WHITESPACE" | perl -lne 's/"Accou
 
 # Blow away the existing "config.vdf" file with the one provided by the end-user.
 CONFIG_VDF_PATH="/home/steam/Steam/config/config.vdf"
-echo "$CONFIG_VDF_CONTENTS" > "$CONFIG_VDF_PATH"
+echo "$CONFIG_VDF_CONTENTS" > $CONFIG_VDF_PATH # The latter variable cannot be quoted.
 
 # Parse the version from the commit message.
 # https://stackoverflow.com/questions/16623835/remove-a-fixed-prefix-suffix-from-a-string-in-bash
