@@ -18,6 +18,7 @@
     "autocrlf",
     "changenote",
     "contentfolder",
+    "corepack",
     "dpkg",
     "esbenp",
     "isaacscript",

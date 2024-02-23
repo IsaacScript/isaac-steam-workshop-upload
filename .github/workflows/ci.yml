@@ -3,35 +3,16 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build_and_lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: yarn
-
-      - name: Retrieve the cached "node_modules" directory (if present)
-        uses: actions/cache@v3
-        id: node-cache
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-
-      - name: Install dependencies (if the cached directory was not found)
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
-
-      - name: Perform automated checks
-        run: bash lint.sh
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/setup
+      - run: npm run lint
 
   discord:
     name: Discord Failure Notification
-    needs: [build_and_lint]
+    needs: [lint]
     if: failure()
     runs-on: ubuntu-latest
     steps:
