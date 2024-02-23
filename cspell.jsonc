@@ -1,18 +1,24 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
+  "import": ["@cspell/cspell-bundled-dicts"],
   "files": ["**"],
   "enableFiletypes": ["*"],
   "enableGlobDot": true,
   "useGitignore": true,
   "ignorePaths": [
+    "*.min.js",
+    "*.mp3",
     "*.pyc",
+    "*.svg",
     ".git/**",
+    ".yarn/**",
     "dist/**",
+    "LICENSE",
     "node_modules/**",
     "package-lock.json",
     "pnpm-lock.yaml",
-    "yarn.lock"
+    "yarn.lock",
   ],
   "words": [
     "autocrlf",
@@ -22,6 +28,7 @@
     "dpkg",
     "esbenp",
     "isaacscript",
+    "knip",
     "packagejson",
     "publishedfileid",
     "sarisia",
@@ -30,6 +37,6 @@
     "STEAMCMDDIR",
     "workshopbuilds",
     "workshopitem",
-    "Zamiell"
-  ]
+    "Zamiell",
+  ],
 }

@@ -22,6 +22,6 @@ npx cspell --no-progress --no-summary .
 npx cspell-check-unused-words
 
 # Check for base file updates.
-npx isaacscript check-ts --ignore ".eslintrc.cjs,build.sh,extensions.json,ci.yml,lint.sh,publish.sh,run.sh,tsconfig.json,tsconfig.eslint.json"
+npx isaacscript check-ts --ignore ".eslintrc.cjs,build.ts,extensions.json,ci.yml,knip.jsonc,lint.ts,tsconfig.json,tsconfig.eslint.json"
 
 echo "Successfully linted in $SECONDS seconds."
