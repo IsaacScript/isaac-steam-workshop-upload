@@ -12,9 +12,14 @@
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
+  "scripts": {
+    "lint": "bash ./lint.sh",
+    "update": "isaacscript update"
+  },
   "devDependencies": {
-    "isaacscript": "^3.6.38",
-    "isaacscript-lint": "^4.12.0",
-    "typescript": "^4.9.5"
-  }
+    "isaacscript": "^4.2.3",
+    "isaacscript-lint": "^6.20.0",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "yarn@4.1.0"
 }
